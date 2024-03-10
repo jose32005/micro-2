@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { query, collection, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -9,37 +9,57 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setLoading(true);
       if (user) {
-        // Buscar la información del usuario por correo en Firestore
-        const usersRef = collection(db, "usuarios");
-        const q = query(usersRef, where("email", "==", user.email));
+        // Buscar el documento en Firestore que coincide con el email del usuario
+        const q = query(collection(db, "usuarios"), where("email", "==", user.email));
         const querySnapshot = await getDocs(q);
         const userData = querySnapshot.docs[0] ? querySnapshot.docs[0].data() : null;
+        const userId = querySnapshot.docs[0] ? querySnapshot.docs[0].id : null; // Capturar el ID del documento
         
-        setCurrentUser({ ...user, ...userData }); // Combina la información de Auth y Firestore
+        setCurrentUser({
+          ...user,
+          ...userData,
+          docId: userId 
+        });
       } else {
         setCurrentUser(null);
       }
-      setLoading(false);
     });
 
-    return unsubscribe; // Desuscribirse al desmontar el componente
+    return unsubscribe;
   }, []);
 
-  const value = {
-    currentUser
+  const updateCurrentUser = (newData) => {
+    setCurrentUser(prevState => ({
+      ...prevState,
+      ...newData,
+    }));
   };
 
+
+  const updateCurrentUserMembresias = (nuevasMembresias) => {
+    if (!currentUser) return;
+  
+    setCurrentUser(prevState => ({
+      ...prevState,
+      membresias: nuevasMembresias
+    }));
+  };
+
+  const value = {
+  currentUser,
+  updateCurrentUserMembresias,
+  updateCurrentUser,
+  };
+  
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
-}
+};

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { doc, collection, getDocs, getDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'; // Asegúrate de ajustar la ruta de importación según tu estructura de proyecto
+import { useAuth } from '../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -12,6 +12,7 @@ function Home() {
   const navigate = useNavigate();
   const [nombreVideojuegoPreferido, setNombreVideojuegoPreferido] = useState('');
 
+  
   useEffect(() => {
     const cargarClubes = async () => {
       const querySnapshot = await getDocs(collection(db, "clubes"));
@@ -79,6 +80,7 @@ function Home() {
           </div>
         ))}
       </div>
+      <button onClick={() => navigate('/search')}>Buscar Videojuegos</button>
     </div>
   );
 }
