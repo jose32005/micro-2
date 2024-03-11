@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { useAuth } from '../contexts/AuthContext'; // Asegura la ruta correcta
+import { useAuth } from '../contexts/AuthContext'; 
+import './styles/Clubes.css';
 
 function ClubDetails() {
-  const { id } = useParams(); // ID del club desde la URL
+  const { id } = useParams(); 
   const [club, setClub] = useState(null);
   const [videojuegos, setVideojuegos] = useState([]);
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ function ClubDetails() {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setClub(docSnap.data());
-        // Obtener información de los videojuegos asociados
         const juegosPromesas = docSnap.data().videojuegos.map(async (juegoId) => {
           const juegoRef = doc(db, "videojuegos", juegoId);
           const juegoSnap = await getDoc(juegoRef);
@@ -27,7 +27,7 @@ function ClubDetails() {
         const juegos = await Promise.all(juegosPromesas);
         setVideojuegos(juegos.filter(juego => juego !== null));
       } else {
-        navigate('/'); // Redirigir si el club no existe
+        navigate('/'); 
       }
     };
 
@@ -41,13 +41,11 @@ function ClubDetails() {
     let nuevasMembresias;
   
     if (currentUser.membresias.includes(id)) {
-      // Retirarse del club
       nuevasMembresias = currentUser.membresias.filter(mId => mId !== id);
       await updateDoc(userDocRef, {
         membresias: arrayRemove(id)
       });
     } else {
-      // Unirse al club
       nuevasMembresias = [...currentUser.membresias, id];
       await updateDoc(userDocRef, {
         membresias: arrayUnion(id)
@@ -57,27 +55,28 @@ function ClubDetails() {
   };
 
   return (
-    <div>
+    <div className="container">
       {club && (
         <>
-          <h1>{club.nombre}</h1>
-          <p>{club.descripcion}</p>
-          <button onClick={toggleMembresia}>
-            {currentUser.membresias.includes(id) ? 'Retirarse' : 'Unirse'}
-          </button>
           <div>
-            {videojuegos.map((juego, index) => (
-              <div key={index}>
-                <h2>{juego.titulo}</h2>
-                <p>Género: {juego.genero}</p>
-                <p>{juego.descripcion}</p>
-              </div>
-            ))}
+            <h1>{club.nombre}</h1>
+            <p>{club.descripcion}</p>
+            <button onClick={toggleMembresia}>
+              {currentUser.membresias.includes(id) ? 'Retirarse' : 'Unirse'}
+            </button>
+          <div>
+              {videojuegos.map((juego, index) => (
+                <div key={index} className="card-juego">
+                  <h2>{juego.titulo}</h2>
+                  <p>Género: {juego.genero}</p>
+                  <p>{juego.descripcion}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </>
       )}
     </div>
   );
 }
-
 export default ClubDetails;
