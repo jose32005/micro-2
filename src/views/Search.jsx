@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-
+import './styles/Search.css';
 function Search() {
   const [juegos, setJuegos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
@@ -20,24 +20,28 @@ function Search() {
   }, [busqueda]);
 
   return (
-    <div>
-      <h1>Buscar Videojuegos</h1>
+    <div className="search-container">
+      <div className="search-header">
+      <h1 className="search-title">Buscar Videojuegos</h1>
       <input
         type="text"
+        className="search-input"
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder="Buscar videojuegos..."
       />
-      <div>
+      </div>
+      <div className="juegos-container">
         {juegos.map((juego) => (
           <div className="juego-card" key={juego.id}>
-            <h3>{juego.titulo}</h3>
-            <p>Género: {juego.genero}</p>
-            <p>Descripción: {juego.descripcion}</p>
+            <h3 className="juego-titulo">{juego.titulo}</h3>
+            <p className="juego-genero">Género: {juego.genero}</p>
+            <p className="juego-descripcion">Descripción: {juego.descripcion}</p>
           </div>
         ))}
       </div>
     </div>
+
   );
 }
 
