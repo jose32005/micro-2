@@ -22,7 +22,7 @@ function Search() {
   return (
     <div className="search-container">
       <div className="search-header">
-      <h1 className="search-title">Buscar Videojuegos</h1>
+      <h1 className="search-title">Buscar Videojuegos 🔍</h1>
       <input
         type="text"
         className="search-input"

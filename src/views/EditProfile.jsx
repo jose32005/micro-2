@@ -28,7 +28,6 @@ function EditProfile() {
     e.preventDefault();
     setLoading(true);
 
-    // Actualizar el documento del usuario en Firestore
     const userDocRef = doc(db, "usuarios", currentUser.docId);
     try {
       await updateDoc(userDocRef, {
@@ -37,7 +36,6 @@ function EditProfile() {
         videojuego_preferido: videojuegoPreferido,
       });
       
-      // Opcional: Actualizar la información del usuario en el contexto
       if (updateCurrentUser) {
         updateCurrentUser({ nombre, apellido, videojuego_preferido: videojuegoPreferido });
       }

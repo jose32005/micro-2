@@ -32,7 +32,7 @@ function Login() {
 
   return (
     <div className='login'>
-        <h1>Inicio de Sesión</h1>
+        <h1>Inicio de Sesión 🔐</h1>
     <div className="login-container">
         <form onSubmit={handleLogin} className="login-form">
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo Electrónico" className="login-input" />
