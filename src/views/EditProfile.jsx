@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { collection, getDocs } from 'firebase/firestore';
+import './styles/EditProfile.css';
 
 function EditProfile() {
   const { currentUser, updateCurrentUser } = useAuth();
@@ -49,29 +50,36 @@ function EditProfile() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Nombre:
-        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-      </label>
-      <label>
-        Apellido:
-        <input type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
-      </label>
-      <label>
-        Videojuego Preferido:
-        <select value={videojuegoPreferido} onChange={(e) => setVideojuegoPreferido(e.target.value)}>
-          <option value="">Selecciona tu videojuego preferido</option>
-          {videojuegos.map((juego) => (
-            <option key={juego.id} value={juego.id}>{juego.titulo}</option>
-          ))}
-        </select>
-      </label>
-      <button type="submit" disabled={loading}>Actualizar Perfil</button>
-    </form>
-  );
-}
 
+  return (
+    <div className="profile-edit">
+    <h1 className="profile-edit__title">Editar Perfil</h1>
+    <div className='profile-container'>
+    <form className="profile-edit__form" onSubmit={handleSubmit}>
+    <label className="profile-edit__label">
+    Nombre:
+    <input className="profile-edit__input" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+    </label>
+    <label className="profile-edit__label">
+    Apellido:
+    <input className="profile-edit__input" type="text" value={apellido} onChange={(e) => setApellido(e.target.value)} />
+    </label>
+    <div className="profile-edit__juego">
+    <label className="profile-edit__label">
+    Videojuego Preferido:
+    <select className="profile-edit__select" value={videojuegoPreferido} onChange={(e) => setVideojuegoPreferido(e.target.value)}>
+    <option value="">Selecciona tu videojuego preferido</option>
+    {videojuegos.map((juego) => (
+    <option key={juego.id} value={juego.id}>{juego.titulo}</option>
+    ))}
+    </select>
+    </label>
+    </div>
+    <button className="profile-edit__button" type="submit" disabled={loading}>Actualizar Perfil</button>
+    </form>
+    </div>
+    </div>
+    );
+    }
 export default EditProfile;
 

@@ -54,6 +54,7 @@ function Home() {
 
   return (
     <div className="home-container">
+      <h1>Clubes de Videojuegos</h1>
       <div className="perfil-usuario">
         {currentUser ? (
           <>
@@ -71,7 +72,6 @@ function Home() {
         )}
       </div>
       <div className="lista-clubes">
-        <h1>Clubes de Videojuegos</h1>
         {clubes.map((club) => (
           <div key={club.id}>
             <h2>{club.nombre}</h2>

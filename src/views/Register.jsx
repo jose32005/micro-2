@@ -65,8 +65,8 @@ function Register() {
           ))}
         </select>
         <button type="submit" className="register-button">Registrar</button>
+        <Link to="/login" className="switch-form">¿Ya tienes cuenta? Inicia sesión</Link>
       </form>
-      <Link to="/login" className="switch-form">¿Ya tienes cuenta? Inicia sesión</Link>
     </div>
     </div>
   );

@@ -1,0 +1,62 @@
+.profile-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 400px;
+  }
+  
+  .profile-edit form {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+  }
+  
+  .profile-edit input,
+  .profile-edit select {
+    max-width: 500px;
+    min-width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin: 10px;
+    background-color: #141417;
+    border-radius: 5px;
+    border: 2px solid aquamarine;
+    color: white;
+  }
+  
+  .profile-edit select {
+    appearance: none;
+    width: 89.8%;
+  }
+  
+  .profile-edit select::-ms-expand {
+    display: none;
+  }
+  
+  .profile-edit__select option {
+    background-color: #141417;
+    color: white;
+  }
+  
+  .profile-edit__button {
+    background-color: aquamarine;
+    color: #141417;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

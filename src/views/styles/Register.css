@@ -1,0 +1,41 @@
+.register{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40%;
+    width: 400px;
+}
+
+.register-form input {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin: 10px;
+    background-color: #141417;
+    border-radius: 5px;
+    border: 2px solid aquamarine;
+}
+
+.register-form select {
+    width: 108%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin: 10px;
+    background-color: #141417;
+    border-radius: 5px;
+    border: 2px solid aquamarine;
+}
